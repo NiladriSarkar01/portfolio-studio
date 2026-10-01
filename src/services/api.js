@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "/api", // proxied to localhost:8080 by Vite
+  baseURL: "https://portfolio-studio-backend.onrender.com/api", // proxied to localhost:8080 by Vite
   timeout: 8000,
   headers: { "Content-Type": "application/json" },
 });
