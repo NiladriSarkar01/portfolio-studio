@@ -9,7 +9,7 @@ export default defineConfig({
     proxy: {
       // All /api calls forwarded to Spring Boot
       "/api": {
-        target: "http://localhost:8080",
+        target: "https://portfolio-studio-backend.onrender.com",
         changeOrigin: true,
       },
     },
