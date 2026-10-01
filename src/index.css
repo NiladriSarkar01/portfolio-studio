@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+@import "tailwindcss";
+
+/* ── Theme (Tailwind v4: configured in CSS, replaces tailwind.config.js) ── */
+@theme {
+  --font-mono: "JetBrains Mono", "Fira Code", Hack, monospace;
+
+  /* Warm coffeehouse palette */
+  --color-portfolio-bg:      #f4ede3;
+  --color-portfolio-panel:   #fbf7f0;
+  --color-portfolio-surface: #fffaf2;
+  --color-portfolio-border:  #d0bca4;
+  --color-portfolio-red:     #805239;
+  --color-portfolio-green:   #77734f;
+  --color-portfolio-amber:   #a76d3d;
+  --color-portfolio-cyan:    #73513b;
+  --color-portfolio-blue:    #73513b;
+  --color-portfolio-muted:   #786b5f;
+  --color-portfolio-text:    #35271f;
+
+  /* Larger type scale (Tailwind defaults are 12 / 14 / 16 / 18 / 20 / 24px) */
+  --text-xs:  0.8125rem;  --text-xs--line-height:  1.25rem;   /* 13px */
+  --text-sm:  0.9375rem;  --text-sm--line-height:  1.4rem;    /* 15px */
+  --text-base: 1.0625rem; --text-base--line-height: 1.6rem;   /* 17px */
+  --text-lg:  1.25rem;    --text-lg--line-height:  1.75rem;   /* 20px */
+  --text-xl:  1.4375rem;  --text-xl--line-height:  1.9rem;    /* 23px */
+  --text-2xl: 1.6875rem;  --text-2xl--line-height: 2.1rem;    /* 27px */
+
+  --animate-fade-in:   fadeIn 0.2s ease;
+  --animate-slide-up:  slideUp 0.3s ease;
+  --animate-blink:     blink 1s step-end infinite;
+  --animate-boot-line: bootLine 0.1s ease;
+
+  @keyframes fadeIn   { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideUp  { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes blink    { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+  @keyframes bootLine { from { opacity: 0; } to { opacity: 1; } }
+}
+
+/* ── Tailwind v4 compatibility (from the official v3 -> v4 upgrade guide) ──
+   v4 changed two defaults; these keep the v3 behaviour this UI was built with. */
+@layer base {
+  *, ::after, ::before, ::backdrop, ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+  button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100dvh;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #f4ede3;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* xterm.js overrides — make it transparent so Tailwind bg shows */
+.xterm { height: 100%; }
+.xterm-viewport { background: transparent !important; }
+.xterm-screen  { background: transparent !important; }
+
+/* Custom scrollbar (wider so it is easy to grab) */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #9fa99a; border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: #805239; }
+
+/* Window drag handle */
+.drag-handle { cursor: grab; }
+.drag-handle:active { cursor: grabbing; }
+
+
+/* Prevent fixed-width children from expanding the viewport */
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+  color: #35271f;
+}
+
+#root {
+  overflow-x: clip;
+}
+
+/* Allow flex and grid children to shrink */
+.min-w-0,
+main,
+section,
+article,
+aside {
+  min-width: 0;
+}
+
+/* Media must never exceed its parent */
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+/* Form controls should fit their containers */
+input,
+textarea,
+select,
+button {
+  max-width: 100%;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .contact-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .contact-form-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .contact-card {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (max-width: 640px) {
+  .app-window {
+    border-radius: 0 !important;
+  }
+}
+
+.app-content button:not(.skill-tile) {
+  border: 2px solid #35271f;
+  border-color: #35271f;
+  border-radius: 9999px;
+  box-shadow: 2px 2px 0 #35271f;
+}
+
+.app-content button:not(:disabled):hover {
+  box-shadow: 3px 3px 0 #35271f;
+}
+
+.app-content article[class*="rounded-"],
+.app-content section[class*="rounded-"],
+.app-content a[class*="rounded-"][class*="border"] {
+  border-color: #35271f;
+  border-width: 2px;
+  border-radius: 1.5rem;
+  box-shadow: 4px 4px 0 #35271f;
+}
